@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌍 Planet C
 
-## Getting Started
+A collaborative resource management game built with Next.js, WebSocket, and React.
 
-First, run the development server:
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Copy environment variables
+cp .env.local.example .env.local
+
+# Start development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔌 Socket Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project uses a structured WebSocket architecture with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ✅ **Type-safe messaging** - All messages are typed
+- ✅ **Automatic reconnection** - 5 attempts, 3s delay
+- ✅ **Event-based system** - Pub/sub pattern
+- ✅ **Reusable hooks** - Easy to use in components
+- ✅ **Status indicator** - Visual connection feedback
+- ✅ **Error handling** - Comprehensive error management
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** [Next.js 15](https://nextjs.org/) with App Router
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
+- **State Management:** [Zustand](https://zustand-demo.pmnd.rs/)
+- **WebSocket:** Native WebSocket API
+- **Package Manager:** [pnpm](https://pnpm.io/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Environment Variables
 
-## Deploy on Vercel
+Create a `.env.local` file:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+# Socket Configuration
+NEXT_PUBLIC_SOCKET_URL=ws://localhost:9090/ws
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Game Configuration
+NEXT_PUBLIC_GAME_ID=default-game
+```
+
+### Socket Configuration
+
+Modify reconnection settings in `utils/config.ts`:
+
+```typescript
+export const SOCKET_CONFIG = {
+  reconnect: {
+    maxAttempts: 5,
+    delay: 3000, // ms
+  },
+};
+```
+
+**Ready to play? 🎮**
+
+Visit [localhost:3000/test/socket](http://localhost:3000/test/socket) to get started!
