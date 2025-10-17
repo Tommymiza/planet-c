@@ -43,7 +43,7 @@ Create a `.env.local` file:
 
 ```env
 # Socket Configuration
-NEXT_PUBLIC_SOCKET_URL=ws://localhost:9090/ws
+NEXT_PUBLIC_SOCKET_URL=ws://localhost:9090/
 
 # Game Configuration
 NEXT_PUBLIC_GAME_ID=default-game
@@ -64,4 +64,4 @@ export const SOCKET_CONFIG = {
 
 **Ready to play? 🎮**
 
-Visit [localhost:3000/test/socket](http://localhost:3000/test/socket) to get started!
+Visit [localhost:3000](http://localhost:3000) to get started!
