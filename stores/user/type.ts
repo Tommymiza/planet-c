@@ -1,10 +1,7 @@
-export type User = {
-  name: string;
-  role: "harverster" | "parkManager";
-};
+import { PlayerItem } from "../game/type";
 
 export type UserStoreItem = {
-  user: User | null;
-  setUser: (user: User) => void;
+  user: PlayerItem | null;
+  setUser: (user: PlayerItem) => void;
   clearUser: () => void;
 };

@@ -1,9 +1,11 @@
 "use client";
 
-import { useGameState } from "@/stores/game";
+import { PlayerItem } from "@/stores/game/type";
 import { useSocket } from "@/stores/socket";
+import { useUserStore } from "@/stores/user";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -12,19 +14,22 @@ export default function Home() {
   });
 
   const { sendMessage } = useSocket();
-  const { players } = useGameState();
-  // Open socket connection on component mount
+  const { setUser } = useUserStore();
 
-  useEffect(() => {
-    console.log("Current players:", players);
-  }, [players]);
+  const router = useRouter();
+
+  // Open socket connection on component mount
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await sendMessage("game:join", {
+      const player: PlayerItem = {
         name: formData.name,
         role: formData.role,
-      });
+      };
+      await sendMessage("game:join", player);
+      localStorage.setItem("player", JSON.stringify(player));
+      setUser(player);
+      router.push("/board");
     } catch (error) {
       console.log(error);
     }
