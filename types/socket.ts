@@ -7,7 +7,8 @@ export type SocketEventType =
   | "round:resolution"
   | "player:connected"
   | "player:disconnected"
-  | "error";
+  | "error"
+  | "cell:clicked";
 
 export interface SocketMessage<T = any> {
   type: SocketEventType;

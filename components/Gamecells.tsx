@@ -1,7 +1,9 @@
+import { useSocket } from "@/stores/socket";
+import { useUserStore } from "@/stores/user";
 import { useState } from "react";
 
 export default function Gamecells() {
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(4);
   const [cols, setCols] = useState(5);
   return (
     <div
@@ -15,14 +17,25 @@ export default function Gamecells() {
     >
       {Array.from({ length: rows }).map((_, i) =>
         Array.from({ length: cols }).map((_, j) => (
-          <div
-            key={`${i}-${j}`}
-            className="border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-blue-100"
-          >
-            ({i + 1}, {j + 1})
-          </div>
+          <Gamecell key={`${i}-${j}`} row={i} col={j} />
         ))
       )}
+    </div>
+  );
+}
+
+function Gamecell({ row, col }: { row: number; col: number }) {
+  const { sendMessage } = useSocket();
+  const { user } = useUserStore();
+  const handleClick = () => {
+    sendMessage("cell:clicked", { row, col, user });
+  };
+  return (
+    <div
+      className="border border-gray-300 flex items-center justify-center"
+      onClick={handleClick}
+    >
+      {row},{col}
     </div>
   );
 }

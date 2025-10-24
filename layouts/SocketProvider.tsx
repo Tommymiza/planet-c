@@ -1,13 +1,10 @@
 "use client";
 
-import {
-  useSocketConnection,
-  useSocketEvent,
-  useSocketStatus,
-} from "@/hooks/useSocketEvents";
+import { useGameJoin } from "@/hooks/useGameSocket";
+import { useSocketConnection, useSocketStatus } from "@/hooks/useSocketEvents";
 import { useGameState } from "@/stores/game";
 import { PlayerItem } from "@/stores/game/type";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface SocketProviderProps {
   url: string;
@@ -27,11 +24,16 @@ export function SocketProvider({
   showStatus = false,
 }: SocketProviderProps) {
   const { status } = useSocketConnection(url);
-  const { setPlayers } = useGameState();
   const { isConnected, isConnecting, isReconnecting, error } =
     useSocketStatus();
 
-  useSocketEvent("game:join", (data) => {
+  const { players, setPlayers } = useGameState();
+
+  useEffect(() => {
+    console.log("Current players:", players);
+  }, [players]);
+
+  useGameJoin((data) => {
     const keys = Object.keys(data);
     const allPlayers: PlayerItem[] = [];
     for (const key of keys) {
@@ -40,6 +42,7 @@ export function SocketProvider({
         role: data[key],
       });
     }
+    console.log("Players joined:", allPlayers);
     setPlayers(allPlayers);
   });
 
@@ -85,11 +88,11 @@ function SocketStatusIndicator({
   };
 
   const getStatusText = () => {
-    if (isReconnecting) return "Reconnexion...";
-    if (isConnecting) return "Connexion...";
-    if (error) return `Erreur: ${error}`;
-    if (status === "connected") return "Connecté";
-    return "Déconnecté";
+    if (isReconnecting) return "Reconnecting...";
+    if (isConnecting) return "Connecting...";
+    if (error) return `Error: ${error}`;
+    if (status === "connected") return "Connected";
+    return "Disconnected";
   };
 
   return (
