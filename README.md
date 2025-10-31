@@ -6,13 +6,13 @@ A collaborative resource management game built with Next.js, WebSocket, and Reac
 
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
 # Copy environment variables
 cp .env.local.example .env.local
 
 # Start development server
-pnpm dev
+npm dev
 ```
 
 ## 🔌 Socket Architecture
