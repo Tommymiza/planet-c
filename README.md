@@ -3,7 +3,7 @@
 A collaborative resource management game built with Next.js, WebSocket, and React.
 
 ### Installation
-
+You need to install [Node.js](https://nodejs.org/en/download)
 ```bash
 # Install dependencies
 npm install
