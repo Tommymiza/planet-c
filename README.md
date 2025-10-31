@@ -33,7 +33,6 @@ This project uses a structured WebSocket architecture with:
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
 - **State Management:** [Zustand](https://zustand-demo.pmnd.rs/)
 - **WebSocket:** Native WebSocket API
-- **Package Manager:** [pnpm](https://pnpm.io/)
 
 ## ⚙️ Configuration
 
@@ -44,9 +43,6 @@ Create a `.env.local` file:
 ```env
 # Socket Configuration
 NEXT_PUBLIC_SOCKET_URL=ws://localhost:9090/
-
-# Game Configuration
-NEXT_PUBLIC_GAME_ID=default-game
 ```
 
 ### Socket Configuration
